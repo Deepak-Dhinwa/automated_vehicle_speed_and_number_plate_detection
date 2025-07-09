@@ -1,0 +1,77 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+plate_detection_env/
+env/
+.venv/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Model files and checkpoints
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# PyCharm / VSCode configs
+.idea/
+.vscode/
+
+# macOS system files
+.DS_Store
+
+
+# YOLO dataset cache or generated files
+*.cache
+*.jpg.cache
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Output folders (if you generate runs or results)
+runs/
+output/
+outputs/
+results/
+
+# Data folders (if generated or large and not tracked)
+data/
+number plate detector data/
+yolo dataset/
+
+# Ignore hidden files at root, except .gitignore and .env if needed
+.*
+!.gitignore
+!.env
+
+# Ignore static generated files (if applicable)
+app/static/*
+
+# Ignore SORT build or cache files if any compiled components exist
+sort/build/
+sort/__pycache__/
+
+# Python egg info
+*.egg-info/
+dist/
+build/
+
+# If using pip-tools
+requirements*.txt~
+
+# If using Sora, DeepSpeed, or large NLP cache directories in future
+huggingface/
+hf_cache/
+.cache/
+
+# Ignore the models directory model weights, keep only scripts
+app/models/*.pt
+app/models/trocr_numberplate_finetuned/
