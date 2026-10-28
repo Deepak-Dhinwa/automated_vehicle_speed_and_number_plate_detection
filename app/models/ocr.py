@@ -5,7 +5,8 @@ import cv2
 import os
 
 # Load TrOCR fine-tuned model
-trocr_path = "models/trocr_numberplate_finetuned"
+_HERE = os.path.dirname(__file__)
+trocr_path = os.path.join(_HERE, "trocr_numberplate_finetuned")
 
 processor = TrOCRProcessor.from_pretrained(trocr_path)
 trocr_model = VisionEncoderDecoderModel.from_pretrained(trocr_path)

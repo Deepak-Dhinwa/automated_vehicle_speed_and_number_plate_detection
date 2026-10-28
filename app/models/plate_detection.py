@@ -1,7 +1,8 @@
 from ultralytics import YOLO
 import os
 
-plate_model = YOLO("models/number_plate_detector_yolov8n.pt")
+_HERE = os.path.dirname(__file__)
+plate_model = YOLO(os.path.join(_HERE, "number_plate_detector_yolov8n.pt"))
 
 def detect_plate(vehicle_img):
     """

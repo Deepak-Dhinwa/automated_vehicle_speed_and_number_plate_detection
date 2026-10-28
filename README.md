@@ -1,5 +1,8 @@
 # Automated Vehicle Speed & Number Plate Detection System
 
+One-page summary: open `poster.html` in a browser.
+Start: `.\run.ps1`
+
 This project is an **end-to-end Computer Vision pipeline** where I built a system that can:
 
 - Detect vehicles in real-time video streams (CCTV or IP webcam)
@@ -103,6 +106,20 @@ project/
 ---
 
 ## Deployment
+
+Run it locally with the existing `plate_detection_env` (this is the environment that matches the saved YOLO and TrOCR weights). From the `app` folder:
+
+```bash
+..\plate_detection_env\Scripts\python.exe -m uvicorn main:app --port 8000
+```
+
+Open `http://127.0.0.1:8000/video_feed`. The default source is `data/videos/2103099-uhd_3840_2160_30fps.mp4`. Set `VIDEO_SOURCE` to a file, a stream URL, or `0` for the webcam.
+
+A short headless check from the project root:
+
+```bash
+plate_detection_env\Scripts\python.exe testing.py
+```
 
 - **Dockerized** the entire app with:
   - FastAPI server serving real-time detection and tracking

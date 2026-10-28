@@ -7,7 +7,8 @@ import numpy as np
 import cv2
 
 # Loading YOLOv8 vehicle detection model
-vehicle_model_path = "models/yolov8n.pt"
+_HERE = os.path.dirname(__file__)
+vehicle_model_path = os.path.join(_HERE, "yolov8n.pt")
 
 vehicle_model = YOLO(vehicle_model_path)
 
