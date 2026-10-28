@@ -5,20 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Speed and Number Plates</title>
 <style>
-:root { --ink:#1c1915; --muted:#5c564c; --line:#d9d1c3; --paper:#f6f1e7; --card:#fffdf8; --accent:#3E4C2F; }
+
+:root { --ink:#1c1915; --muted:#5c564c; --line:#d9d1c3; --paper:#f6f1e7; --card:#fffdf8; --accent:#1F4E3D; }
 * { box-sizing:border-box; }
 body { margin:0; background:#e7e1d6; color:var(--ink); font-family:Georgia, "Iowan Old Style", serif; }
 .sheet { max-width:1180px; margin:28px auto; background:var(--paper); border:1px solid var(--line); }
-.band { display:grid; grid-template-columns:1.25fr 1fr 0.9fr; border-top:1px solid var(--line); }
-.band section { padding-bottom:18px; }
-header { display:flex; justify-content:space-between; gap:24px; padding:28px 32px 18px; border-bottom:3px solid var(--accent); }
+header { display:flex; justify-content:space-between; gap:24px; padding:26px 32px 16px; border-bottom:3px solid var(--accent); }
 h1 { font-size:34px; line-height:1.05; margin:0 0 8px; letter-spacing:-0.4px; }
-.claim { margin:0; font-family:"Segoe UI", sans-serif; font-size:16px; color:var(--muted); max-width:680px; }
+.claim { margin:0; font-family:"Segoe UI", sans-serif; font-size:16px; color:var(--muted); max-width:720px; }
 .kicker { font-family:"Segoe UI", sans-serif; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin:0 0 8px; }
 .tags { font-family:"Segoe UI", sans-serif; font-size:12px; text-align:right; color:var(--muted); }
 .tags span { display:inline-block; border:1px solid var(--line); padding:4px 8px; margin:0 0 6px 6px; background:var(--card); }
-.grid { display:grid; grid-template-columns:1.1fr 1fr 0.9fr; }
-section { padding:22px 24px 8px; border-right:1px solid var(--line); }
+.path { display:grid; grid-template-columns:repeat(4,1fr); list-style:none; margin:0; padding:0; border-bottom:1px solid var(--line); }
+.path li { padding:12px 16px 14px; border-right:1px solid var(--line); }
+.path li:last-child { border-right:0; }
+.path b { display:block; font-family:"Segoe UI", sans-serif; font-size:11px; letter-spacing:0.12em; color:var(--accent); margin-bottom:4px; }
+.path span { font-family:"Segoe UI", sans-serif; font-size:13.5px; line-height:1.35; }
+.grid, .band { display:grid; grid-template-columns:1.15fr 1fr 0.9fr; }
+.band { border-top:1px solid var(--line); }
+section { padding:18px 22px 8px; border-right:1px solid var(--line); }
 section:last-child { border-right:0; }
 h2 { font-family:"Segoe UI", sans-serif; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; margin:0 0 10px; color:var(--accent); }
 p, li { font-family:"Segoe UI", sans-serif; font-size:14.5px; line-height:1.45; }
@@ -26,35 +31,83 @@ ul { margin:0; padding-left:18px; }
 .stat { border-top:1px solid var(--line); padding:10px 0; }
 .stat b { display:block; font-size:26px; font-family:Georgia, serif; }
 .stat span { font-family:"Segoe UI", sans-serif; font-size:12px; color:var(--muted); }
-footer { display:flex; justify-content:space-between; gap:20px; padding:16px 32px 22px; border-top:1px solid var(--line); font-family:"Segoe UI", sans-serif; font-size:14px; }
+.out { font-family:Consolas, monospace; font-size:12.5px; line-height:1.55; background:var(--card); border:1px solid var(--line); padding:10px 12px; margin:0 0 8px; white-space:pre-wrap; }
+.shots { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:8px 22px 18px; border-top:1px solid var(--line); }
+.shots.one { grid-template-columns:1fr; }
+.shots.two { grid-template-columns:1.15fr 1fr; }
+.shots figure { margin:0; background:var(--card); border:1px solid var(--line); }
+.shots img { width:100%; height:190px; object-fit:contain; background:#fff; display:block; }
+.shots.one img { height:280px; }
+.shots figcaption { font-family:"Segoe UI", sans-serif; font-size:12px; color:var(--muted); padding:6px 8px 8px; }
+.next { margin:0; padding:12px 28px 16px; border-top:1px solid var(--line); font-family:"Segoe UI", sans-serif; font-size:13.5px; color:var(--muted); line-height:1.45; }
+.next b { color:var(--ink); font-weight:600; }
+footer { display:flex; justify-content:space-between; gap:20px; padding:16px 28px 22px; border-top:1px solid var(--line); font-family:"Segoe UI", sans-serif; font-size:14px; }
 code { font-family:Consolas, monospace; background:var(--card); border:1px solid var(--line); padding:2px 6px; }
-@media (max-width:800px) { .grid, .band { grid-template-columns:1fr; } section { border-right:0; border-bottom:1px solid var(--line); } header, footer { display:block; } .tags { text-align:left; margin-top:12px; } }
+@media (max-width:800px) {
+  .grid, .band, .path, .shots, .shots.two { grid-template-columns:1fr; }
+  section { border-right:0; border-bottom:1px solid var(--line); }
+  header, footer { display:block; }
+  .tags { text-align:left; margin-top:12px; }
+}
+
 </style>
 </head>
 <body>
 <article class="sheet">
+
   <header>
     <div>
       <p class="kicker">Built app</p>
       <h1>Speed and Number Plates</h1>
-      <p class="claim">One camera stream is enough to track a vehicle, read its plate, and estimate speed from how it moves through the frame.</p>
+      <p class="claim">One camera stream finds each vehicle, keeps its identity, estimates speed from how it moves, and reads the plate when the crop is clear.</p>
     </div>
     <div class="tags"><span>YOLO</span><span>SORT</span><span>TrOCR</span></div>
   </header>
+  <ol class="path">
+    <li><b>01 · Find</b><span>YOLOv8n, trained on COCO, boxes the vehicles in the frame.</span></li>
+    <li><b>02 · Track</b><span>SORT gives each box an id, so the same car stays the same car.</span></li>
+    <li><b>03 · Measure</b><span>Speed is how far that id moves between frames, scaled into km/h.</span></li>
+    <li><b>04 · Read</b><span>A second YOLO finds the plate inside the vehicle. TrOCR reads that crop.</span></li>
+  </ol>
   <div class="grid">
-    <section><h2>Question</h2><ul><li>Can a single video identify a vehicle and say how fast it is going?</li><li>Plates are small, motion is noisy, and the same car must stay one identity across frames.</li></ul></section>
-    <section><h2>Method</h2><ul><li>YOLO finds vehicles and plates. SORT keeps identities.</li><li>TrOCR reads the plate crop.</li><li>Speed comes from tracked displacement. A FastAPI route serves the annotated video.</li></ul></section>
-    <section><h2>Evidence</h2><div class="stat"><b>41 km/h</b><span>sample track, id 3</span></div><div class="stat"><b>37 km/h</b><span>sample track, id 5</span></div><div class="stat"><b>1 stream</b><span>browser video feed</span></div></section>
+    <section><h2>Question</h2><ul>
+      <li>Can a single video say which vehicle this is, how fast it is going, and what the plate says?</li>
+      <li>Plates are small, and the same car must not become a new id every frame.</li>
+    </ul></section>
+    <section><h2>Why this path</h2><ul>
+      <li>Detection without a tracker cannot measure speed. The id is what makes the motion belong to one car.</li>
+      <li>The plate model is separate because a plate is a thin object inside a much larger box.</li>
+    </ul></section>
+    <section><h2>What held</h2>
+      <div class="stat"><b>~0.95</b><span>plate detector, mAP50</span></div>
+      <div class="stat"><b>1 id</b><span>per vehicle, held by SORT</span></div>
+      <div class="stat"><b>1 stream</b><span>annotated video in the browser</span></div>
+    </section>
   </div>
   <div class="band">
-    <section><h2>What the result actually says</h2><ul><li>Vehicles use YOLOv8n trained on COCO. Plates use a second YOLOv8n, custom-trained, around mAP50 0.95.</li><li>SORT keeps one identity across frames. Speed is displacement of that track. On the sample clip, id 3 reads 41 km/h and id 5 reads 37 km/h.</li><li>The same pipeline was packed in Docker and run on Azure Container Instances against a live camera stream.</li></ul></section>
-    <section><h2>What it does not show</h2><ul><li>TrOCR, after fine-tuning, fuzzy-matches the plate about 50–60% of the time. Exact character match is lower. A blurry crop still fails.</li><li>Speed jitters between frames. The number needs smoothing before anyone would trust it as a measurement.</li></ul></section>
-    <section><h2>Beside the other attempts</h2><ul><li>Detection is the strong half. OCR is the weak half. The tracker is what makes speed possible at all.</li><li>The default file is the UHD sample in data/videos. VIDEO_SOURCE can be another file, a stream URL, or 0 for the webcam.</li></ul></section>
+    <section><h2>Reading the result</h2><ul>
+      <li>On the sample highway clip the tracker draws a box, an id, and a speed. Two of those tracks read about 41 km/h and 37 km/h.</li>
+      <li>When the vehicle is large in the frame, the plate box appears and OCR returns characters from that crop.</li>
+      <li>The same pipeline was packed in Docker and pointed at a live camera on Azure Container Instances.</li>
+    </ul></section>
+    <section><h2>A real output</h2>
+      <div class="out">sample clip, one frame
+ID 3    41 km/h
+ID 5    37 km/h
+plate   read when the crop is large enough</div>
+      <p>Open the video feed to see the boxes move.</p>
+    </section>
+    <section><h2>Where the energy went</h2><ul>
+      <li>Detection and tracking are the solid half. They are what the stream shows immediately.</li>
+      <li>Reading every character, and smoothing the speed so it does not jump between frames, is the pass that still tightens.</li>
+    </ul></section>
   </div>
+  <p class="next"><b>Next pass.</b> Plate text is reliable on a close crop and thinner on a distant one. Speed is a frame-to-frame estimate and wants a short average before anyone treats it as a measurement.</p>
   <footer>
-    <div><h2>Stack</h2><p>YOLOv8n, SORT, TrOCR, FastAPI. Weights load from plate_detection_env, which matches those checkpoints.</p></div>
+    <div><h2>Stack</h2><p>YOLOv8n, SORT, TrOCR, FastAPI. Weights load from <code>plate_detection_env</code>.</p></div>
     <div><h2>Look at it</h2><p>Run <code>.\run.ps1</code>, then open <code>http://127.0.0.1:8000/video_feed</code>.</p></div>
   </footer>
+
 </article>
 </body>
 </html>
