@@ -3,7 +3,7 @@ import numpy as np
 import os
 import glob
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from models.vehicle_detection import detect_and_track
 from models.plate_detection import detect_plate
 from models.ocr import read_plate_text
@@ -129,6 +129,20 @@ def generate_frames():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
     cap.release()
+
+@app.get("/", response_class=HTMLResponse)
+def index():
+    return """<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vehicle speed and plate detection</title>
+</head>
+<body style="margin:0;background:#111;color:#eee;font-family:sans-serif">
+  <p style="padding:12px 16px;margin:0">Live detection on the sample video. Set VIDEO_SOURCE to use another file or the webcam.</p>
+  <img src="/video_feed" alt="detection stream" style="width:100%;height:auto;display:block">
+</body>
+</html>"""
 
 @app.get("/video_feed")
 def video_feed():

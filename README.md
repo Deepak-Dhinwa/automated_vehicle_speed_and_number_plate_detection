@@ -1,7 +1,7 @@
 # Automated Vehicle Speed & Number Plate Detection System
 
 One-page summary: open `poster.html` in a browser.
-Start: `.\run.ps1`
+Start: `.\run.ps1`, then open `http://127.0.0.1:8000`. The bare server address used to return 404. `/` is the page, and `/video_feed` is the raw stream.
 
 This project is an **end-to-end Computer Vision pipeline** where I built a system that can:
 
@@ -113,7 +113,7 @@ Run it locally with the existing `plate_detection_env` (this is the environment 
 ..\plate_detection_env\Scripts\python.exe -m uvicorn main:app --port 8000
 ```
 
-Open `http://127.0.0.1:8000/video_feed`. The default source is `data/videos/2103099-uhd_3840_2160_30fps.mp4`. Set `VIDEO_SOURCE` to a file, a stream URL, or `0` for the webcam.
+Open `http://127.0.0.1:8000`. That page shows the detection stream. `http://127.0.0.1:8000/video_feed` is the raw stream, which is why opening only the server root used to say 404. The default source is `data/videos/2103099-uhd_3840_2160_30fps.mp4`. Set `VIDEO_SOURCE` to a file, a stream URL, or `0` for the webcam.
 
 A short headless check from the project root:
 

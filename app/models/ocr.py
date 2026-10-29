@@ -8,7 +8,7 @@ import os
 _HERE = os.path.dirname(__file__)
 trocr_path = os.path.join(_HERE, "trocr_numberplate_finetuned")
 
-processor = TrOCRProcessor.from_pretrained(trocr_path)
+processor = TrOCRProcessor.from_pretrained(trocr_path, use_fast=False)
 trocr_model = VisionEncoderDecoderModel.from_pretrained(trocr_path)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 trocr_model.to(device)
